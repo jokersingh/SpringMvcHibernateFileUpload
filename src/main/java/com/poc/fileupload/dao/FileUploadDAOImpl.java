@@ -25,4 +25,9 @@ public class FileUploadDAOImpl implements FileUploadDAO {
 		sessionFactory.getCurrentSession().save(uploadFile);
 	}
 
+	@Override
+	public UploadFile getFileFor(String fileName) {
+		return (UploadFile)sessionFactory.getCurrentSession().get(UploadFile.class, 1);
+	}
+
 }

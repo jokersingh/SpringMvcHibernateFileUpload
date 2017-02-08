@@ -9,6 +9,9 @@
 <body>
 	<div align="center">
 		<h1>Files have been uploaded successfully!</h1>
+		<form method="post" action="doUpload" enctype="multipart/form-data">
+		<h2><input type="button" value="Show File"></h2>
+		</form>
 	</div>
 </body>
 </html>

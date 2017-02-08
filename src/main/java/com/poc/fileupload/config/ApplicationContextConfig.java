@@ -21,7 +21,7 @@ import com.poc.fileupload.dao.FileUploadDAOImpl;
 import com.poc.fileupload.model.UploadFile;
 
 @Configuration
-@ComponentScan("net.codejava.fileupload")
+@ComponentScan("com.poc.fileupload")
 @EnableTransactionManagement
 public class ApplicationContextConfig {
     @Bean(name = "viewResolver")
