@@ -9,18 +9,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "FILES_UPLOAD")
 public class UploadFile {
-	private long id;
+	private int id;
 	private String fileName;
 	private byte[] data;
 
 	@Id
 	@GeneratedValue
 	@Column(name = "FILE_ID")
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -1,5 +1,6 @@
 package com.poc.fileupload.dao;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,8 +27,11 @@ public class FileUploadDAOImpl implements FileUploadDAO {
 	}
 
 	@Override
+	@Transactional
 	public UploadFile getFileFor(String fileName) {
-		return (UploadFile)sessionFactory.getCurrentSession().get(UploadFile.class, 1);
+		Session session = sessionFactory.getCurrentSession();
+		UploadFile uploadFile = (UploadFile) session.get(UploadFile.class, 1);
+		return uploadFile;
 	}
 
 }

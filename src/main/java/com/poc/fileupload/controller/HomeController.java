@@ -1,13 +1,19 @@
 package com.poc.fileupload.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,14 +59,14 @@ public class HomeController {
     
     @RequestMapping(value = "/files/{file_name}", method = RequestMethod.GET)
     @ResponseBody 
-    public FileSystemResource getFile(@PathVariable("file_name") String fileName) {
+    public void getFile(@PathVariable("file_name") String fileName,HttpServletRequest request, HttpServletResponse response) throws IOException {
     	UploadFile fileUpload = fileUploadDao.getFileFor(fileName);
 		
-    	try (FileOutputStream fileOuputStream = new FileOutputStream(File.createTempFile("tempFile", ".tmp"));) {
-            fileOuputStream.write(fileUpload.getData());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new FileSystemResource(new File("tempFile.tmp")); 
+    	response.setHeader("Content-Disposition", "inline; filename=\"report.zip\"");
+        response.setDateHeader("Expires", -1);
+        response.setContentType("application/zip");
+        response.setContentLength(fileUpload.getData().length);
+        response.getOutputStream().write(fileUpload.getData());
+        
     }
 }
